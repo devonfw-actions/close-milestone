@@ -1,18 +1,19 @@
-name: 'Close Milestone'
-description: 'Apply workarounds + Java Setup + Maven Repository Caching'
+name: 'Publish GitHub Release and Manage Milestones'
 
 inputs:
   GHA_TOKEN:
     required: true
-  milestone_name:
+  release_version:
+    description: 'Release version, which will be equally the name for the GitHub release and the GitHub milestone'
     required: true
 
 runs:
   using: "composite"
   steps:
     - uses: "actions/setup-python@v2"
-        with:
-          python-version: "3.8"
+      with:
+        python-version: "3.10"
     - run: pip install -r ${{github.action_path}}/requirements.txt
       shell: bash
-    - 
+    - run: python ${{github.action_path}}/create_release.py -g ${{github.repository}} -v ${{inputs.release_version}} -t ${{inputs.GHA_TOKEN}}
+      shell: bash
