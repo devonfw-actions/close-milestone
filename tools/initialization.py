@@ -67,7 +67,7 @@ def init_git_dependent_config(config: Config, github: GitHub):
 
 def __process_params(config: Config):
     try:
-        opts, args = getopt.getopt(sys.argv[1:], "dg:hyv:t:", ["debug", "github-repo-id=", "help", "dry-run", "release-version", "github-token"])
+        opts, args = getopt.getopt(sys.argv[1:], "dg:hyv:t:", ["debug", "github-repo-id=", "help", "dry-run", "release-version=", "github-token="])
     except getopt.GetoptError:
         __print_cmd_help()
         sys.exit(2)
@@ -102,4 +102,6 @@ Options:
   -h / --help:            Provides a short help about the intention and possible options.
   -y / --dry-run:         Will prevent from pushing to the remote repository, changing anything on GitHub
                           Issues/Milestones etc.
+  -v / --release-version  Release version to be used to create the GitHub release for and find milestones
+  -t / --github-token     GitHub token vor GitHub API authentication
     """)
